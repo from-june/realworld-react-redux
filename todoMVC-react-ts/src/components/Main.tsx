@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
-import { v4 as uuid } from 'uuid';
+import React from 'react';
 import TodoItem from 'components/TodoItem';
 
-const Main = () => {
-  const initialState = [
-    { id: uuid(), task: 'To do an assignment', completed: false },
-    { id: uuid(), task: 'Be a FE developer', completed: true },
-    { id: uuid(), task: 'Do what I do like', completed: true }
-  ];
+type typeTodoList = {
+  todoList: { id: string; task: string; completed: boolean }[];
+};
 
-  const [todoList, setTodoList] = useState(initialState);
-
+const Main = ({ todoList }: typeTodoList) => {
   return (
     <main className="main">
       <input
