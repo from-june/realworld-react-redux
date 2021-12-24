@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { ITodo } from 'components/types';
 interface IAddTask {
   addTask: React.Dispatch<React.SetStateAction<ITodo[]>>;
 }

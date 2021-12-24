@@ -1,5 +1,4 @@
 import React from 'react';
-import { ITodo } from 'components/types';
 
 const TodoItem = ({ id, task, completed }: ITodo) => {
   return (
