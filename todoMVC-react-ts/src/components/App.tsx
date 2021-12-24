@@ -16,7 +16,7 @@ const App = () => {
   return (
     <section className="todoapp">
       <>
-        <Header />
+        <Header addTask={setTodoList} />
         <Main todoList={todoList} />
         <Footer />
       </>
