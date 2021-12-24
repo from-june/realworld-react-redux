@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoItem from 'components/TodoItem';
 
 const Main = () => (
   <main className="main">
@@ -10,14 +11,7 @@ const Main = () => (
     />
     <label htmlFor="toggle-all"></label>
     <ul className="todo-list">
-      <li className="completed">
-        <div className="view">
-          <input className="toggle" type="checkbox" checked={false} />
-          <label>투두 리스트</label>
-          <button className="destroy"></button>
-        </div>
-        <input className="edit" value="투두 리스트" />
-      </li>
+      <TodoItem task={'To do an assignment'} completed={false} />
     </ul>
   </main>
 );
