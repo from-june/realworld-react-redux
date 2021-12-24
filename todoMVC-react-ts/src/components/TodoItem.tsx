@@ -1,12 +1,7 @@
 import React from 'react';
+import { ITodo } from 'components/types';
 
-type Todo = {
-  id: string;
-  task: string;
-  completed: boolean;
-};
-
-const TodoItem = ({ id, task, completed }: Todo) => {
+const TodoItem = ({ id, task, completed }: ITodo) => {
   return (
     <li className={completed ? 'completed' : ''} data-task-id={id}>
       <div className="view">

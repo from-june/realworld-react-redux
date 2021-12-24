@@ -1,8 +1,9 @@
 import React from 'react';
+import { ITodo } from 'components/types';
 import TodoItem from 'components/TodoItem';
 
 type typeTodoList = {
-  todoList: { id: string; task: string; completed: boolean }[];
+  todoList: ITodo[];
 };
 
 const Main = ({ todoList }: typeTodoList) => {
