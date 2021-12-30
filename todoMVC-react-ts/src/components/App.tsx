@@ -18,11 +18,23 @@ const App = () => {
     setTodoList(prevState => prevState.filter(todo => todo.id !== taskId));
   };
 
+  const toggleTask = (taskId: string) => {
+    setTodoList(prevState =>
+      prevState.map(todo =>
+        todo.id === taskId ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
   return (
     <section className="todoapp">
       <>
         <Header addTask={addTask} />
-        <Main todoList={todoList} deleteTask={deleteTask} />
+        <Main
+          todoList={todoList}
+          deleteTask={deleteTask}
+          toggleTask={toggleTask}
+        />
         <Footer />
       </>
     </section>

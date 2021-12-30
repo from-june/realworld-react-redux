@@ -4,9 +4,10 @@ import TodoItem from 'components/TodoItem';
 type propsTodoList = {
   todoList: ITodo[];
   deleteTask: (targetId: string) => void;
+  toggleTask: (targetId: string) => void;
 };
 
-const Main = ({ todoList, deleteTask }: propsTodoList) => {
+const Main = ({ todoList, deleteTask, toggleTask }: propsTodoList) => {
   return (
     <main className="main">
       <input
@@ -25,6 +26,7 @@ const Main = ({ todoList, deleteTask }: propsTodoList) => {
             task={todo.task}
             completed={todo.completed}
             deleteTask={deleteTask}
+            toggleTask={toggleTask}
           />
         ))}
       </ul>
