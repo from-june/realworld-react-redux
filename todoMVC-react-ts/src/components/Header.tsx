@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { v4 as uuid } from 'uuid';
 interface IAddTask {
-  addTask: React.Dispatch<React.SetStateAction<ITodo[]>>;
+  addTask: (task: string) => void;
 }
 
 const Header = ({ addTask }: IAddTask) => {
@@ -13,10 +12,7 @@ const Header = ({ addTask }: IAddTask) => {
 
   const onInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      addTask(prevState => [
-        { task, completed: false, id: uuid() },
-        ...prevState
-      ]);
+      addTask(task);
       setTask('');
     }
   };
