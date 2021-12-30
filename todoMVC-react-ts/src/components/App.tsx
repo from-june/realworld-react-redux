@@ -26,6 +26,12 @@ const App = () => {
     );
   };
 
+  const clearCompleted = () =>
+    setTodoList(prevState =>
+      prevState.filter(todo => todo.completed === false)
+    );
+
+  console.log(todoList);
   return (
     <section className="todoapp">
       <>
@@ -35,7 +41,7 @@ const App = () => {
           deleteTask={deleteTask}
           toggleTask={toggleTask}
         />
-        <Footer />
+        <Footer clearCompleted={clearCompleted} todoList={todoList} />
       </>
     </section>
   );
