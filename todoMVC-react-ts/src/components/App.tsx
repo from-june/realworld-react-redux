@@ -6,6 +6,7 @@ import Footer from 'components/Footer';
 
 const App = () => {
   const [todoList, setTodoList] = useState<ITodo[]>([]);
+
   const addTask = (task: string) => {
     setTodoList(prevState => [
       { task, completed: false, id: uuid() },
@@ -13,11 +14,15 @@ const App = () => {
     ]);
   };
 
+  const deleteTask = (taskId: string) => {
+    setTodoList(prevState => prevState.filter(todo => todo.id !== taskId));
+  };
+
   return (
     <section className="todoapp">
       <>
         <Header addTask={addTask} />
-        <Main todoList={todoList} />
+        <Main todoList={todoList} deleteTask={deleteTask} />
         <Footer />
       </>
     </section>

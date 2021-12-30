@@ -1,12 +1,12 @@
 import React from 'react';
-import { ITodo } from 'components/types';
 import TodoItem from 'components/TodoItem';
 
-type typeTodoList = {
+type propsTodoList = {
   todoList: ITodo[];
+  deleteTask: (targetId: string) => void;
 };
 
-const Main = ({ todoList }: typeTodoList) => {
+const Main = ({ todoList, deleteTask }: propsTodoList) => {
   return (
     <main className="main">
       <input
@@ -14,6 +14,7 @@ const Main = ({ todoList }: typeTodoList) => {
         className="toggle-all"
         type="checkbox"
         checked={false}
+        readOnly
       />
       <label htmlFor="toggle-all"></label>
       <ul className="todo-list">
@@ -23,6 +24,7 @@ const Main = ({ todoList }: typeTodoList) => {
             id={todo.id}
             task={todo.task}
             completed={todo.completed}
+            deleteTask={deleteTask}
           />
         ))}
       </ul>
