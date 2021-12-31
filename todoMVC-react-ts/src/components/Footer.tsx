@@ -3,9 +3,17 @@ import React from 'react';
 type propsFooter = {
   todoList: ITodo[];
   clearCompleted: () => void;
+  filter: string;
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Footer = ({ todoList, clearCompleted }: propsFooter) => {
+const Footer = ({
+  todoList,
+  clearCompleted,
+  filter,
+  setFilter
+}: propsFooter) => {
+  const category = ['all', 'active', 'completed'];
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -14,29 +22,24 @@ const Footer = ({ todoList, clearCompleted }: propsFooter) => {
         <span> left</span>
       </span>
       <ul className="filters">
-        <li>
-          <a href="#/" className="selected">
-            All
-          </a>
-        </li>
-        <span> </span>
-        <li>
-          <a href="#/active" className="">
-            Active
-          </a>
-        </li>
-        <span> </span>
-        <li>
-          <a href="#/completed" className="">
-            Completed
-          </a>
-        </li>
+        {category.map(taskState => (
+          <li key={taskState}>
+            <a
+              href={`#/${taskState}`}
+              className={taskState === filter ? 'selected' : ''}
+              onClick={() => setFilter(taskState)}
+            >
+              {`${taskState[0].toUpperCase()}${taskState.slice(1)}`}
+            </a>
+          </li>
+        ))}
       </ul>
-      {todoList.some(todo => todo.completed === true) && (
-        <button className="clear-completed" onClick={clearCompleted}>
-          Clear completed
-        </button>
-      )}
+      {todoList.some(todo => todo.completed === true) &&
+        (filter === 'all' || filter === 'completed') && (
+          <button className="clear-completed" onClick={clearCompleted}>
+            Clear completed
+          </button>
+        )}
     </footer>
   );
 };

@@ -6,6 +6,7 @@ import Footer from 'components/Footer';
 
 const App = () => {
   const [todoList, setTodoList] = useState<ITodo[]>([]);
+  const [filter, setFilter] = useState('all');
 
   const addTask = (task: string) => {
     const newTask = { task, completed: false, id: uuid() };
@@ -37,17 +38,36 @@ const App = () => {
       prevState.filter(todo => todo.completed === false)
     );
 
+  const filterTask = (category: string) => {
+    if (category === 'active') {
+      return todoList.filter(todo => todo.completed === false);
+    }
+
+    if (category === 'completed') {
+      return todoList.filter(todo => todo.completed === true);
+    }
+
+    return todoList;
+  };
+
+  const filterTodoList = filterTask(filter);
+
   return (
     <section className="todoapp">
       <>
         <Header addTask={addTask} />
         <Main
-          todoList={todoList}
+          todoList={filterTodoList}
           deleteTask={deleteTask}
           toggleTask={toggleTask}
           modifyTask={modifyTask}
         />
-        <Footer clearCompleted={clearCompleted} todoList={todoList} />
+        <Footer
+          clearCompleted={clearCompleted}
+          todoList={todoList}
+          filter={filter}
+          setFilter={setFilter}
+        />
       </>
     </section>
   );
