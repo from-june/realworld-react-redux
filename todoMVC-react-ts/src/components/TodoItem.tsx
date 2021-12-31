@@ -56,6 +56,7 @@ const TodoItem = ({
           type="checkbox"
           checked={completed}
           onClick={() => toggleTask(id)}
+          readOnly
         />
         <label>{task}</label>
         <button className="destroy" onClick={() => deleteTask(id)}></button>
