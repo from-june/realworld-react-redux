@@ -8,10 +8,8 @@ const App = () => {
   const [todoList, setTodoList] = useState<ITodo[]>([]);
 
   const addTask = (task: string) => {
-    setTodoList(prevState => [
-      { task, completed: false, id: uuid() },
-      ...prevState
-    ]);
+    const newTask = { task, completed: false, id: uuid() };
+    setTodoList(prevState => [newTask, ...prevState]);
   };
 
   const deleteTask = (taskId: string) => {
