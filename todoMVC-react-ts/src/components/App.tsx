@@ -26,6 +26,14 @@ const App = () => {
     );
   };
 
+  const modifyTask = (taskId: string, newTask: string) => {
+    setTodoList(prevState =>
+      prevState.map(todo =>
+        todo.id === taskId ? { ...todo, task: newTask } : todo
+      )
+    );
+  };
+
   const clearCompleted = () =>
     setTodoList(prevState =>
       prevState.filter(todo => todo.completed === false)
@@ -39,6 +47,7 @@ const App = () => {
           todoList={todoList}
           deleteTask={deleteTask}
           toggleTask={toggleTask}
+          modifyTask={modifyTask}
         />
         <Footer clearCompleted={clearCompleted} todoList={todoList} />
       </>

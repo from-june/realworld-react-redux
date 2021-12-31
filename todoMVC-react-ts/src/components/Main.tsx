@@ -5,9 +5,15 @@ type propsTodoList = {
   todoList: ITodo[];
   deleteTask: (targetId: string) => void;
   toggleTask: (targetId: string) => void;
+  modifyTask: (targetId: string, task: string) => void;
 };
 
-const Main = ({ todoList, deleteTask, toggleTask }: propsTodoList) => {
+const Main = ({
+  todoList,
+  deleteTask,
+  toggleTask,
+  modifyTask
+}: propsTodoList) => {
   return (
     <main className="main">
       <input
@@ -27,6 +33,7 @@ const Main = ({ todoList, deleteTask, toggleTask }: propsTodoList) => {
             completed={todo.completed}
             deleteTask={deleteTask}
             toggleTask={toggleTask}
+            modifyTask={modifyTask}
           />
         ))}
       </ul>
