@@ -31,7 +31,6 @@ const App = () => {
       prevState.filter(todo => todo.completed === false)
     );
 
-  console.log(todoList);
   return (
     <section className="todoapp">
       <>
