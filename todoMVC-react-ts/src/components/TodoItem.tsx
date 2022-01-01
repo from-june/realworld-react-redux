@@ -44,6 +44,12 @@ const TodoItem = ({
     editTaskItem();
   };
 
+  const onDeleteClick = () => {
+    if (confirm('삭제된 아이템은 복구되지 않습니다. 정말 삭제하시겠습니까?')) {
+      deleteTask(id);
+    }
+  };
+
   return (
     <li
       className={(completed ? 'completed' : '') + (edit ? 'editing' : '')}
@@ -59,7 +65,7 @@ const TodoItem = ({
           readOnly
         />
         <label>{task}</label>
-        <button className="destroy" onClick={() => deleteTask(id)}></button>
+        <button className="destroy" onClick={onDeleteClick}></button>
       </div>
       <input
         className="edit"
