@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import Header from 'components/Header';
 import Main from 'components/Main';
@@ -7,6 +7,18 @@ import Footer from 'components/Footer';
 const App = () => {
   const [todoList, setTodoList] = useState<ITodo[]>([]);
   const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    const data = localStorage.getItem('TODO_LIST');
+
+    if (data) {
+      setTodoList(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('TODO_LIST', JSON.stringify(todoList));
+  }, [todoList]);
 
   const addTask = (task: string) => {
     const newTask = { task, completed: false, id: uuid() };
