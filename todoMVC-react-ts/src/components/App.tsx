@@ -21,6 +21,8 @@ const App = () => {
   }, [todoList]);
 
   const addTask = (task: string) => {
+    if (task === '') return;
+
     const newTask = { task, completed: false, id: uuid() };
     setTodoList(prevState => [newTask, ...prevState]);
   };
