@@ -6,13 +6,15 @@ type propsTodoList = {
   deleteTask: (targetId: string) => void;
   toggleTask: (targetId: string) => void;
   modifyTask: (targetId: string, task: string) => void;
+  toggleAllTasks: () => void;
 };
 
 const Main = ({
   todoList,
   deleteTask,
   toggleTask,
-  modifyTask
+  modifyTask,
+  toggleAllTasks
 }: propsTodoList) => {
   return (
     <main className="main">
@@ -23,7 +25,7 @@ const Main = ({
         checked={false}
         readOnly
       />
-      <label htmlFor="toggle-all"></label>
+      <label htmlFor="toggle-all" onClick={toggleAllTasks}></label>
       <ul className="todo-list">
         {todoList.map(todo => (
           <TodoItem

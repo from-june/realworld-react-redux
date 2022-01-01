@@ -45,10 +45,18 @@ const App = () => {
     );
   };
 
-  const clearCompleted = () =>
+  const toggleAllTasks = () => {
+    const isCompletedAll = todoList.every(todo => todo.completed);
+    setTodoList(prevState =>
+      prevState.map(todo => ({ ...todo, completed: !isCompletedAll }))
+    );
+  };
+
+  const clearCompleted = () => {
     setTodoList(prevState =>
       prevState.filter(todo => todo.completed === false)
     );
+  };
 
   const filterTask = (category: string) => {
     if (category === 'active') {
@@ -73,6 +81,7 @@ const App = () => {
           deleteTask={deleteTask}
           toggleTask={toggleTask}
           modifyTask={modifyTask}
+          toggleAllTasks={toggleAllTasks}
         />
         <Footer
           clearCompleted={clearCompleted}
