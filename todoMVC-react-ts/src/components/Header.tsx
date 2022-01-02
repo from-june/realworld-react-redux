@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask } from 'modules/actions';
+import { addTask } from 'modules/actions/actions';
 
 const Header = () => {
   const dispatch = useDispatch();

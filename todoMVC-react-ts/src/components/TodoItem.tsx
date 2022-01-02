@@ -1,6 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { modifyTask, deleteTask, toggleTask } from 'modules/actions';
+import { modifyTask, deleteTask, toggleTask } from 'modules/actions/actions';
 
 const TodoItem = ({ id, task, completed }: ITodo) => {
   const dispatch = useDispatch();

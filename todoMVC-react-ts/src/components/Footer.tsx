@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { clearCompleted } from 'modules/actions';
+import { clearCompleted } from 'modules/actions/actions';
 
 type propsFooter = {
   todoList: ITodo[];

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'modules/store';
-import { loadTodoList } from 'modules/actions';
+import { loadTodoList } from 'modules/actions/actions';
 import Header from 'components/Header';
 import Main from 'components/Main';
 import Footer from 'components/Footer';
