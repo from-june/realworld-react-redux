@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-interface IAddTask {
-  addTask: (task: string) => void;
-}
+import { useDispatch } from 'react-redux';
+import { addTask } from 'modules/actions';
 
-const Header = ({ addTask }: IAddTask) => {
+const Header = () => {
+  const dispatch = useDispatch();
   const [task, setTask] = useState('');
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +12,7 @@ const Header = ({ addTask }: IAddTask) => {
 
   const onInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      addTask(task);
+      dispatch(addTask(task));
       setTask('');
     }
   };

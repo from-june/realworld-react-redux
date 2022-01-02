@@ -1,21 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import TodoItem from 'components/TodoItem';
+import { toggleAllTasks } from 'modules/actions';
 
 type propsTodoList = {
   todoList: ITodo[];
-  deleteTask: (targetId: string) => void;
-  toggleTask: (targetId: string) => void;
-  modifyTask: (targetId: string, task: string) => void;
-  toggleAllTasks: () => void;
 };
 
-const Main = ({
-  todoList,
-  deleteTask,
-  toggleTask,
-  modifyTask,
-  toggleAllTasks
-}: propsTodoList) => {
+const Main = ({ todoList }: propsTodoList) => {
+  const dispatch = useDispatch();
+
   return (
     <main className="main">
       <input
@@ -25,7 +19,10 @@ const Main = ({
         checked={false}
         readOnly
       />
-      <label htmlFor="toggle-all" onClick={toggleAllTasks}></label>
+      <label
+        htmlFor="toggle-all"
+        onClick={() => dispatch(toggleAllTasks)}
+      ></label>
       <ul className="todo-list">
         {todoList.map(todo => (
           <TodoItem
@@ -33,9 +30,6 @@ const Main = ({
             id={todo.id}
             task={todo.task}
             completed={todo.completed}
-            deleteTask={deleteTask}
-            toggleTask={toggleTask}
-            modifyTask={modifyTask}
           />
         ))}
       </ul>

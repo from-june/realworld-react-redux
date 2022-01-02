@@ -1,19 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { clearCompleted } from 'modules/actions';
 
 type propsFooter = {
   todoList: ITodo[];
-  clearCompleted: () => void;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Footer = ({
-  todoList,
-  clearCompleted,
-  filter,
-  setFilter
-}: propsFooter) => {
+const Footer = ({ todoList, filter, setFilter }: propsFooter) => {
+  const dispatch = useDispatch();
   const category = ['all', 'active', 'completed'];
+
   return (
     <footer className="footer">
       <span className="todo-count">
@@ -36,7 +34,10 @@ const Footer = ({
       </ul>
       {todoList.some(todo => todo.completed === true) &&
         (filter === 'all' || filter === 'completed') && (
-          <button className="clear-completed" onClick={clearCompleted}>
+          <button
+            className="clear-completed"
+            onClick={() => dispatch(clearCompleted)}
+          >
             Clear completed
           </button>
         )}

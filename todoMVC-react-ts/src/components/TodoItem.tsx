@@ -1,22 +1,10 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { modifyTask, deleteTask, toggleTask } from 'modules/actions';
 
-type propsTodoItem = {
-  id: string;
-  task: string;
-  completed: boolean;
-  deleteTask: (targetId: string) => void;
-  toggleTask: (targetId: string) => void;
-  modifyTask: (targetId: string, task: string) => void;
-};
+const TodoItem = ({ id, task, completed }: ITodo) => {
+  const dispatch = useDispatch();
 
-const TodoItem = ({
-  id,
-  task,
-  completed,
-  deleteTask,
-  toggleTask,
-  modifyTask
-}: propsTodoItem) => {
   const [edit, setEdit] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +22,7 @@ const TodoItem = ({
   };
 
   const editTaskItem = () => {
-    modifyTask(id, editedTask);
+    dispatch(modifyTask(id, editedTask));
     setEdit(false);
   };
 
@@ -46,7 +34,7 @@ const TodoItem = ({
 
   const onDeleteClick = () => {
     if (confirm('삭제된 아이템은 복구되지 않습니다. 정말 삭제하시겠습니까?')) {
-      deleteTask(id);
+      dispatch(deleteTask(id));
     }
   };
 
@@ -61,7 +49,7 @@ const TodoItem = ({
           className="toggle"
           type="checkbox"
           checked={completed}
-          onClick={() => toggleTask(id)}
+          onClick={() => dispatch(toggleTask(id))}
           readOnly
         />
         <label>{task}</label>
