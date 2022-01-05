@@ -10,7 +10,7 @@ const App = () => {
   const todoList = useSelector((state: RootState) => state.todoList);
   const dispatch = useDispatch();
 
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState<Filter>('all');
 
   useEffect(() => {
     const data = localStorage.getItem('TODO_LIST');

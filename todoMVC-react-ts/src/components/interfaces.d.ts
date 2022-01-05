@@ -3,3 +3,5 @@ interface ITodo {
   task: string;
   completed: boolean;
 }
+
+type Filter = 'all' | 'active' | 'completed';

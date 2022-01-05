@@ -4,13 +4,13 @@ import { clearCompleted } from 'modules/actions/actions';
 
 type propsFooter = {
   todoList: ITodo[];
-  filter: string;
-  setFilter: React.Dispatch<React.SetStateAction<string>>;
+  filter: Filter;
+  setFilter: React.Dispatch<React.SetStateAction<Filter>>;
 };
 
 const Footer = ({ todoList, filter, setFilter }: propsFooter) => {
   const dispatch = useDispatch();
-  const category = ['all', 'active', 'completed'];
+  const category = ['all', 'active', 'completed'] as Filter[];
 
   return (
     <footer className="footer">
