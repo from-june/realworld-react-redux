@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask } from 'modules/reducers';
+import { addTask } from 'modules/todoListSlice';
 
 const Header = () => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import TodoItem from 'components/TodoItem';
-import { toggleAllTasks } from 'modules/reducers';
+import { toggleAllTasks } from 'modules/todoListSlice';
 
 type propsTodoList = {
   todoList: ITodo[];
