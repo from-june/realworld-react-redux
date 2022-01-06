@@ -23,10 +23,8 @@ const todoListSlice = createSlice({
       }
     },
     addTask: {
-      reducer: (state, action: PayloadAction<ITodo>) => [
-        action.payload,
-        ...state
-      ],
+      reducer: (state, action: PayloadAction<ITodo>) =>
+        action.payload.task !== '' ? [action.payload, ...state] : state,
       prepare: (task: string) => {
         const newTask = { task, completed: false, id: uuid() };
         return { payload: newTask };
