@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'modules/store';
-import { loadTodoList } from 'modules/actions/actions';
+import { loadTodoList } from 'modules/reducers';
 import Header from 'components/Header';
 import Main from 'components/Main';
 import Footer from 'components/Footer';
 
 const App = () => {
-  const todoList = useSelector((state: RootState) => state.todoList);
+  const todoList = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
   const [filter, setFilter] = useState<Filter>('all');

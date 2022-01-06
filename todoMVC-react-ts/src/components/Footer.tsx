@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { clearCompleted } from 'modules/actions/actions';
+import { clearCompleted } from 'modules/reducers';
 
 type propsFooter = {
   todoList: ITodo[];
@@ -36,7 +36,7 @@ const Footer = ({ todoList, filter, setFilter }: propsFooter) => {
         (filter === 'all' || filter === 'completed') && (
           <button
             className="clear-completed"
-            onClick={() => dispatch(clearCompleted)}
+            onClick={() => dispatch(clearCompleted())}
           >
             Clear completed
           </button>

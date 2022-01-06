@@ -1,73 +1,84 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import {
-  LOAD_TODO_LIST,
-  ADD_TASK,
-  DELETE_TASK,
-  TOGGLE_TASK,
-  MODIFY_TASK,
-  TOGGLE_ALL_TASKS,
-  CLEAR_COMPLETED
-} from 'modules/actions/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v4 as uuid } from 'uuid';
 
-const initialState: ITodo[] = [
-  {
-    task: 'Be happy',
-    id: '1234',
-    completed: false
-  }
-];
+interface Todo {
+  id: string;
+  task: string;
+}
 
-const todoListReducer = (
-  state = initialState,
-  action:
-    | {
-        type: 'LOAD_TODO_LIST';
-        payload: ITodo[];
+const todoListSlice = createSlice({
+  name: 'todoList',
+  initialState: [
+    {
+      task: 'Be happy',
+      id: '77777',
+      completed: false
+    }
+  ] as ITodo[],
+  reducers: {
+    loadTodoList: {
+      reducer: (_, action: PayloadAction<ITodo[]>) => [...action.payload],
+      prepare: (state: ITodo[]) => {
+        return { payload: state };
       }
-    | {
-        type: 'ADD_TASK' | 'DELETE_TASK' | 'TOGGLE_TASK' | 'MODIFY_TASK';
-        payload: ITodo;
+    },
+    addTask: {
+      reducer: (state, action: PayloadAction<ITodo>) => [
+        action.payload,
+        ...state
+      ],
+      prepare: (task: string) => {
+        const newTask = { task, completed: false, id: uuid() };
+        return { payload: newTask };
       }
-    | {
-        type: 'TOGGLE_ALL_TASKS' | 'CLEAR_COMPLETED';
+    },
+    deleteTask: {
+      reducer: (state, action: PayloadAction<string>) =>
+        state.filter(todo => todo.id !== action.payload),
+      prepare: (taskId: string) => {
+        return { payload: taskId };
       }
-) => {
-  switch (action.type) {
-    case LOAD_TODO_LIST:
-      return [...action.payload];
-
-    case ADD_TASK:
-      return [action.payload, ...state];
-
-    case DELETE_TASK:
-      return state.filter(todo => todo.id !== action.payload.id);
-
-    case TOGGLE_TASK:
-      return state.map(todo =>
-        todo.id === action.payload.id
-          ? { ...todo, completed: !todo.completed }
-          : todo
-      );
-
-    case MODIFY_TASK:
-      return state.map(todo =>
-        todo.id === action.payload.id
-          ? { ...todo, task: action.payload.task }
-          : todo
-      );
-
-    case TOGGLE_ALL_TASKS:
+    },
+    toggleTask: {
+      reducer: (state, action: PayloadAction<string>) =>
+        state.map(todo =>
+          todo.id === action.payload
+            ? { ...todo, completed: !todo.completed }
+            : todo
+        ),
+      prepare: (taskId: string) => {
+        return { payload: taskId };
+      }
+    },
+    modifyTask: {
+      reducer: (state, action: PayloadAction<Todo>) =>
+        state.map(todo =>
+          todo.id === action.payload.id
+            ? { ...todo, task: action.payload.task }
+            : todo
+        ),
+      prepare: (taskId: string, newTask: string) => {
+        return { payload: { id: taskId, task: newTask } };
+      }
+    },
+    toggleAllTasks: state => {
       const isCompletedAll = state.every(todo => todo.completed);
       return state.map(todo => ({ ...todo, completed: !isCompletedAll }));
-
-    case CLEAR_COMPLETED:
-      return state.filter(todo => todo.completed === false);
-
-    default:
-      return state;
+    },
+    clearCompleted: state => state.filter(todo => todo.completed === false)
   }
-};
-
-export default combineReducers({
-  todoList: todoListReducer
 });
+
+const { actions, reducer } = todoListSlice;
+
+export const {
+  loadTodoList,
+  addTask,
+  deleteTask,
+  toggleTask,
+  modifyTask,
+  toggleAllTasks,
+  clearCompleted
+} = actions;
+
+export default reducer;
