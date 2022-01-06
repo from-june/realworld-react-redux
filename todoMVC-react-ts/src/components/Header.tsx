@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTask } from 'modules/todoListSlice';
+import useTodoListAtom from 'modules/useTodoListAtom';
 
 const Header = () => {
-  const dispatch = useDispatch();
+  const { addTask } = useTodoListAtom();
   const [task, setTask] = useState('');
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +11,7 @@ const Header = () => {
 
   const onInputKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      dispatch(addTask(task));
+      addTask(task);
       setTask('');
     }
   };

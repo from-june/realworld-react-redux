@@ -1,14 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import useTodoListAtom from 'modules/useTodoListAtom';
 import TodoItem from 'components/TodoItem';
-import { toggleAllTasks } from 'modules/todoListSlice';
 
 type propsTodoList = {
   todoList: ITodo[];
 };
 
 const Main = ({ todoList }: propsTodoList) => {
-  const dispatch = useDispatch();
+  const { toggleAllTasks } = useTodoListAtom();
 
   return (
     <main className="main">
@@ -19,10 +18,7 @@ const Main = ({ todoList }: propsTodoList) => {
         checked={false}
         readOnly
       />
-      <label
-        htmlFor="toggle-all"
-        onClick={() => dispatch(toggleAllTasks())}
-      ></label>
+      <label htmlFor="toggle-all" onClick={() => toggleAllTasks()}></label>
       <ul className="todo-list">
         {todoList.map(todo => (
           <TodoItem

@@ -1,6 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { clearCompleted } from 'modules/todoListSlice';
+import useTodoListAtom from 'modules/useTodoListAtom';
 
 type propsFooter = {
   todoList: ITodo[];
@@ -9,7 +8,7 @@ type propsFooter = {
 };
 
 const Footer = ({ todoList, filter, setFilter }: propsFooter) => {
-  const dispatch = useDispatch();
+  const { clearCompleted } = useTodoListAtom();
   const category = ['all', 'active', 'completed'] as Filter[];
 
   return (
@@ -34,10 +33,7 @@ const Footer = ({ todoList, filter, setFilter }: propsFooter) => {
       </ul>
       {todoList.some(todo => todo.completed === true) &&
         (filter === 'all' || filter === 'completed') && (
-          <button
-            className="clear-completed"
-            onClick={() => dispatch(clearCompleted())}
-          >
+          <button className="clear-completed" onClick={() => clearCompleted()}>
             Clear completed
           </button>
         )}

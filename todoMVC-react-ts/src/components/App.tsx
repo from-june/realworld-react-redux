@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'modules/store';
-import { loadTodoList } from 'modules/todoListSlice';
+import useTodoListAtom from 'modules/useTodoListAtom';
 import Header from 'components/Header';
 import Main from 'components/Main';
 import Footer from 'components/Footer';
 
 const App = () => {
-  const todoList = useSelector((state: RootState) => state);
-  const dispatch = useDispatch();
-
-  const [filter, setFilter] = useState<Filter>('all');
+  const { todoList, loadTodoList } = useTodoListAtom();
 
   useEffect(() => {
     const data = localStorage.getItem('TODO_LIST');
 
     if (data) {
-      dispatch(loadTodoList(JSON.parse(data)));
+      loadTodoList(JSON.parse(data));
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem('TODO_LIST', JSON.stringify(todoList));
   }, [todoList]);
+
+  const [filter, setFilter] = useState<Filter>('all');
 
   const filterTask = (category: string) => {
     if (category === 'active') {
@@ -40,11 +37,9 @@ const App = () => {
 
   return (
     <section className="todoapp">
-      <>
-        <Header />
-        <Main todoList={filterTodoList} />
-        <Footer todoList={todoList} filter={filter} setFilter={setFilter} />
-      </>
+      <Header />
+      <Main todoList={filterTodoList} />
+      <Footer todoList={todoList} filter={filter} setFilter={setFilter} />
     </section>
   );
 };

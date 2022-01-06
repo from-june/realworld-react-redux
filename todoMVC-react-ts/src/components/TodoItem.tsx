@@ -1,9 +1,8 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { modifyTask, deleteTask, toggleTask } from 'modules/todoListSlice';
+import useTodoListAtom from 'modules/useTodoListAtom';
 
 const TodoItem = ({ id, task, completed }: ITodo) => {
-  const dispatch = useDispatch();
+  const { modifyTask, deleteTask, toggleTask } = useTodoListAtom();
 
   const [edit, setEdit] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
@@ -22,7 +21,7 @@ const TodoItem = ({ id, task, completed }: ITodo) => {
   };
 
   const editTaskItem = () => {
-    dispatch(modifyTask(id, editedTask));
+    modifyTask(id, editedTask);
     setEdit(false);
   };
 
@@ -34,7 +33,7 @@ const TodoItem = ({ id, task, completed }: ITodo) => {
 
   const onDeleteClick = () => {
     if (confirm('삭제된 아이템은 복구되지 않습니다. 정말 삭제하시겠습니까?')) {
-      dispatch(deleteTask(id));
+      deleteTask(id);
     }
   };
 
@@ -49,7 +48,7 @@ const TodoItem = ({ id, task, completed }: ITodo) => {
           className="toggle"
           type="checkbox"
           checked={completed}
-          onClick={() => dispatch(toggleTask(id))}
+          onClick={() => toggleTask(id)}
           readOnly
         />
         <label>{task}</label>
