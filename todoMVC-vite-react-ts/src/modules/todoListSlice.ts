@@ -32,38 +32,39 @@ const todoListSlice = createSlice({
     },
     deleteTask: {
       reducer: (state, action: PayloadAction<string>) =>
-        state.filter(todo => todo.id !== action.payload),
+        state.filter(task => task.id !== action.payload),
       prepare: (taskId: string) => {
         return { payload: taskId };
       }
     },
     toggleTask: {
-      reducer: (state, action: PayloadAction<string>) =>
-        state.map(todo =>
-          todo.id === action.payload
-            ? { ...todo, completed: !todo.completed }
-            : todo
-        ),
+      reducer: (state, action: PayloadAction<string>) => {
+        const targetTask = state.find(task => task.id === action.payload);
+
+        if (targetTask) {
+          targetTask.completed = !targetTask.completed;
+        }
+      },
       prepare: (taskId: string) => {
         return { payload: taskId };
       }
     },
     modifyTask: {
       reducer: (state, action: PayloadAction<Todo>) =>
-        state.map(todo =>
-          todo.id === action.payload.id
-            ? { ...todo, task: action.payload.task }
-            : todo
+        state.map(task =>
+          task.id === action.payload.id
+            ? { ...task, task: action.payload.task }
+            : task
         ),
       prepare: (taskId: string, newTask: string) => {
         return { payload: { id: taskId, task: newTask } };
       }
     },
     toggleAllTasks: state => {
-      const isCompletedAll = state.every(todo => todo.completed);
-      return state.map(todo => ({ ...todo, completed: !isCompletedAll }));
+      const isCompletedAll = state.every(task => task.completed);
+      return state.map(task => ({ ...task, completed: !isCompletedAll }));
     },
-    clearCompleted: state => state.filter(todo => todo.completed === false)
+    clearCompleted: state => state.filter(task => task.completed === false)
   }
 });
 
