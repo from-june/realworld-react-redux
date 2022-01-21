@@ -8,15 +8,19 @@ type propsFooter = {
   setFilter: React.Dispatch<React.SetStateAction<Filter>>;
 };
 
+export const category = ['all', 'active', 'completed'] as Filter[];
+
 const Footer = ({ todoList, filter, setFilter }: propsFooter) => {
-  const category = ['all', 'active', 'completed'] as Filter[];
   const dispatch = useDispatch();
+  const leftItemListCount = todoList.filter(
+    task => task.completed === false
+  ).length;
 
   return (
     <footer className="footer">
-      <span className="todo-count">
-        <strong>{todoList.length}</strong>
-        <span> items</span>
+      <span className="todo-count" aria-label="left todos count">
+        <strong>{leftItemListCount === 0 ? 'no' : leftItemListCount}</strong>
+        <span> {leftItemListCount >= 2 ? 'items' : 'item'}</span>
         <span> left</span>
       </span>
       <ul className="filters">
